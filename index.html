@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Feed – BreatheCo Exercise</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #fafafa;
+      font-family: sans-serif;
+    }
+
+    .photo-feed {
+      margin-top: 20px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      gap: 8px;
+      font-size: 1.1rem;
+    }
+
+    .photo-card:hover .overlay {
+      opacity: 1;
+    }
+
+    .overlay i {
+      font-size: 1.3rem;
+    }
+
+    .modal-img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: cover;
+    }
+
+    .modal-body .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .modal-body .likes {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: bold;
+    }
+
+    .modal-body .description {
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .username {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <h3>Instagram Feed</h3>
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="viewDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        View Mode
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="viewDropdown">
+        <li><a class="dropdown-item" href="#" data-view="grid">Grid</a></li>
+        <li><a class="dropdown-item" href="#" data-view="list">List</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row photo-feed" id="photoFeed">
+    <!-- Foto 1 -->
+    <div class="col-12 col-md-4">
+      <div class="photo-card" data-bs-toggle="modal" data-bs-target="#photoModal"
+           data-img="https://imotorbike-wp-media.s3.ap-southeast-1.amazonaws.com/2025/08/MM-_7__UC836758_High-1024x683.jpg"
+           data-likes="24.023"
+           data-user="MotoGP"
+           data-description="MotoGP se despide po este año, os esperamos en el proximo, sera tambien de marc?">
+        <img src="https://imotorbike-wp-media.s3.ap-southeast-1.amazonaws.com/2025/08/MM-_7__UC836758_High-1024x683.jpg" alt="MARC">
+        <div class="overlay"><i class="bi bi-heart-fill"></i> 240</div>
+      </div>
+    </div>
+    <!-- Foto 2 -->
+    <div class="col-12 col-md-4">
+      <div class="photo-card" data-bs-toggle="modal" data-bs-target="#photoModal"
+           data-img="https://www.hollywoodreporter.com/wp-content/uploads/2024/11/F1-Grand-Prix-Las-Vegas-Race-Charles-LeClerc-GettyImages-1801966267-MAIN-2024.jpg"
+           data-likes="150.743"
+           data-user="F1"
+           data-description="Las Vegas F1 GP">
+        <img src="https://www.hollywoodreporter.com/wp-content/uploads/2024/11/F1-Grand-Prix-Las-Vegas-Race-Charles-LeClerc-GettyImages-1801966267-MAIN-2024.jpg" alt="Foto 2">
+        <div class="overlay"><i class="bi bi-heart-fill"></i> 150</div>
+      </div>
+    </div>
+    <!-- Foto 3 -->
+    <div class="col-12 col-md-4">
+      <div class="photo-card" data-bs-toggle="modal" data-bs-target="#photoModal"
+           data-img="https://static.wikia.nocookie.net/strangerthings8338/images/5/51/Season_5_Teaser_Poster.jpg/revision/latest?cb=20250715203311"
+           data-likes="310"
+           data-user="Strangerthings"
+           data-description="Coming soon...">
+        <img src="https://static.wikia.nocookie.net/strangerthings8338/images/5/51/Season_5_Teaser_Poster.jpg/revision/latest?cb=20250715203311" alt="Strangerthings">
+        <div class="overlay"><i class="bi bi-heart-fill"></i> 310</div>
+      </div>
+    </div>
+    <!-- Puedes añadir más fotos aquí -->
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="photoModalLabel">Publicación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" class="modal-img" src="https://static.wikia.nocookie.net/strangerthings8338/images/5/51/Season_5_Teaser_Poster.jpg/revision/latest?cb=20250715203311" alt="Imagen ampliada">
+        <div class="info">
+          <div class="likes"><i class="bi bi-heart-fill text-danger"></i> <span id="modalLikes"></span></div>
+          <div><span class="username" id="modalUser"></span></div>
+        </div>
+        <div class="description" id="modalDescription"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Pasar datos al modal cuando se abre
+  const cards = document.querySelectorAll('.photo-card');
+  const modalImg = document.getElementById('modalImg');
+  const modalLikes = document.getElementById('modalLikes');
+  const modalUser = document.getElementById('modalUser');
+  const modalDescription = document.getElementById('modalDescription');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      modalImg.src = card.getAttribute('data-img');
+      modalLikes.innerText = card.getAttribute('data-likes');
+      modalUser.innerText = card.getAttribute('data-user');
+      modalDescription.innerText = card.getAttribute('data-description');
+    });
+  });
+
+  // Lógica para cambiar entre vista grid y lista
+  document.querySelectorAll('[data-view]').forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const view = item.getAttribute('data-view');
+      const cols = document.querySelectorAll('#photoFeed .col-12, #photoFeed .col-md-4');
+
+      if (view === 'list') {
+        cols.forEach(col => {
+          col.classList.remove('col-md-4');
+          col.classList.add('col-12');
+        });
+      } else {
+        cols.forEach(col => {
+          col.classList.remove('col-12');
+          col.classList.add('col-md-4');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
